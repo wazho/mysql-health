@@ -6,6 +6,8 @@ npm install mysql-health
 
 ## Usage
 
+### TypeScript
+
 ```typescript
 import { healthCheckup } from 'mysql-health';
 
@@ -23,4 +25,10 @@ import { healthCheckup } from 'mysql-health';
     //   false 'Client does not support authentication protocol requested by server; consider upgrading MySQL client'
     console.log(isHealthy, error);
 })();
+```
+
+### Command line
+
+```
+npx mysql-health -h <host> -p <port> -u <user> -P <password>
 ```

@@ -8,10 +8,19 @@ async function healthCheckup(connectionUri) {
     try {
         connection = mysql_1.createConnection(connectionUri);
         await new Promise((resolve) => {
-            connection.query('SELECT 1 + 1 AS solution', (err) => {
-                isHealthy = !err;
-                error = err ? err.sqlMessage : undefined;
-                resolve();
+            connection.connect((connectError) => {
+                if (connectError) {
+                    error = connectError.sqlMessage;
+                }
+                connection.query('SELECT 1 + 1 AS solution', (queryError) => {
+                    if (queryError) {
+                        error = queryError.sqlMessage;
+                    }
+                    else {
+                        isHealthy = true;
+                    }
+                    resolve();
+                });
             });
         });
     }
