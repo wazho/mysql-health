@@ -7,23 +7,24 @@ export async function healthCheckup(connectionUri: string | ConnectionConfig) {
 
     try {
         connection = createConnection(connectionUri);
-        await new Promise((resolve) => {
+
+        error = await new Promise((resolve) => {
             connection!.connect((connectError) => {
                 if (connectError) {
-                    error = connectError.sqlMessage;
+                    resolve(connectError.sqlMessage);
                 }
 
                 connection!.query('SELECT 1 + 1 AS solution', (queryError) => {
                     if (queryError) {
-                        error = queryError.sqlMessage;
+                        resolve(queryError.sqlMessage);
                     } else {
-                        isHealthy = true;
+                        resolve();
                     }
-
-                    resolve();
                 });
             });
         });
+
+        isHealthy = error === undefined;
     } catch (e) {
         isHealthy = false;
         error = e && e.message;

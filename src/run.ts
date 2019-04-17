@@ -23,5 +23,5 @@ program
     //   true undefined
     // Error case:
     //   false 'Client does not support authentication protocol requested by server; consider upgrading MySQL client'
-    console.log(isHealthy, error, program.host);
+    console.log(isHealthy, error);
 })();

@@ -25,6 +25,6 @@ commander_1.default
     //   true undefined
     // Error case:
     //   false 'Client does not support authentication protocol requested by server; consider upgrading MySQL client'
-    console.log(isHealthy, error, commander_1.default.host);
+    console.log(isHealthy, error);
 })();
 //# sourceMappingURL=run.js.map
